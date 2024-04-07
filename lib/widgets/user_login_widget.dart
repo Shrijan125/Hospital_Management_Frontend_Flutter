@@ -91,8 +91,9 @@ class LoginUserWidget extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            authenticationBloc
-                                .add(UserLoginButtonPressedEvent());
+                            authenticationBloc.add(UserLoginButtonPressedEvent(
+                                username: _usernameController.text,
+                                password: _passwordcontroller.text));
                           },
                           style: const ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(

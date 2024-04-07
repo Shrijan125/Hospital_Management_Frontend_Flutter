@@ -40,6 +40,8 @@ dependencies:
   page_transition: ^2.1.0
   bloc: ^8.1.4
   http: ^1.2.1
+  dio: ^5.4.2+1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

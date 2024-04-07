@@ -14,3 +14,11 @@ class UserLoginState extends AuthenticationState {}
 class UserSignupState extends AuthenticationState {}
 
 class LoginState extends AuthenticationState {}
+
+class UserLoggedInActionState extends AuthenticationActionState {}
+
+class UserLoginErrorActionState extends AuthenticationActionState {
+  final String errorMessage;
+
+  UserLoginErrorActionState({required this.errorMessage});
+}

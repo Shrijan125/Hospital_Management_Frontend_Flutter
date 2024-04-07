@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:fontend/network/user_requests/user_network_request.dart';
 import 'package:meta/meta.dart';
 
 part 'authentication_event.dart';
@@ -23,9 +25,23 @@ class AuthenticationBloc
     print("Admin Login Button Presesed");
   }
 
-  FutureOr<void> userLoginButtonPressedEvent(
-      UserLoginButtonPressedEvent event, Emitter<AuthenticationState> emit) {
-    print("User Login Button Presesed");
+  FutureOr<void> userLoginButtonPressedEvent(UserLoginButtonPressedEvent event,
+      Emitter<AuthenticationState> emit) async {
+    var response =
+        await UserNetworkRequests.loginUser(event.username, event.password);
+    if (response.statusCode == 200) {
+      emit(UserLoggedInActionState());
+    } else {
+      if (response.statusCode == 400) {
+        emit(UserLoginErrorActionState(errorMessage: "Username is required"));
+      } else if (response.statusCode == 404) {
+        emit(UserLoginErrorActionState(errorMessage: "User does not exist"));
+      } else if (response.statusCode == 401) {
+        emit(UserLoginErrorActionState(errorMessage: "Invalid Credentials"));
+      } else {
+        emit(UserLoginErrorActionState(errorMessage: "Something went wrong"));
+      }
+    }
   }
 
   FutureOr<void> adminButtonPressedEvent(
@@ -40,8 +56,9 @@ class AuthenticationBloc
   }
 
   FutureOr<void> signUpButtonPressed(
-      SignUpButtonPressedEvent event, Emitter<AuthenticationState> emit) {
-    print("SignUp Button Presesed");
+      SignUpButtonPressedEvent event, Emitter<AuthenticationState> emit) async {
+    var response =
+        await UserNetworkRequests.signUpUser("shrijan", "shreshth", "password");
   }
 
   FutureOr<void> alreadyHaveAccountButtonPressed(

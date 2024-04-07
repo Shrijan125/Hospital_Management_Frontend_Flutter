@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fontend/features/auth/bloc/authentication_bloc.dart';
+import 'package:fontend/features/home/ui/home_page.dart';
 import 'package:fontend/utils/constants.dart';
 import 'package:fontend/widgets/admin_login.dart';
 import 'package:fontend/widgets/user_login_widget.dart';
@@ -21,7 +22,20 @@ class _LoginScreenState extends State<LoginScreen> {
       bloc: authenticationBloc,
       listenWhen: (previous, current) => current is AuthenticationActionState,
       buildWhen: (previous, current) => current is! AuthenticationActionState,
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is UserLoggedInActionState) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+            return const HomePage();
+          }));
+        }
+        if (state is UserLoginErrorActionState) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.errorMessage),
+            duration: const Duration(seconds: 1),
+          ));
+        }
+      },
       builder: (context, state) {
         switch (state.runtimeType) {
           case const (UserLoginState):
