@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fontend/features/auth/bloc/authentication_bloc.dart';
-import 'package:fontend/features/home/ui/home_page.dart';
+import 'package:fontend/features/user/home/ui/home_page.dart';
 import 'package:fontend/utils/constants.dart';
 import 'package:fontend/widgets/admin_login.dart';
 import 'package:fontend/widgets/user_login_widget.dart';
 import 'package:fontend/widgets/user_sign_up.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +16,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late SharedPreferences prefs;
+  @override
+  void initState() {
+    initSharedPref();
+    super.initState();
+  }
+
+  void initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
   final AuthenticationBloc authenticationBloc = AuthenticationBloc();
   @override
   Widget build(BuildContext context) {
@@ -22,10 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
       bloc: authenticationBloc,
       listenWhen: (previous, current) => current is AuthenticationActionState,
       buildWhen: (previous, current) => current is! AuthenticationActionState,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is UserLoggedInActionState) {
+          await prefs.setString('refreshToken', state.refreshToken);
+          await prefs.setString('accessToken', state.accessToken);
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-            return const HomePage();
+            return HomePage();
           }));
         }
         if (state is UserLoginErrorActionState) {

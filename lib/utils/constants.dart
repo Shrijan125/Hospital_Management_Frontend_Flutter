@@ -15,3 +15,5 @@ const appBartitleStyle =
 const homePageTitle = "HealthCare Clinic";
 const profiePageTitle = "Profile";
 const editProfilePageTitle = "Edit Profile";
+
+const appBarIcontheme = IconThemeData(color: Colors.white, size: 30);

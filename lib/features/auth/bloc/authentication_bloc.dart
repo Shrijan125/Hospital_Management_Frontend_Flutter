@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,11 @@ class AuthenticationBloc
     var response =
         await UserNetworkRequests.loginUser(event.username, event.password);
     if (response.statusCode == 200) {
-      emit(UserLoggedInActionState());
+      var decodedResponse = jsonDecode(response.body);
+      String accessToken = decodedResponse['data']['accessToken'];
+      String refreshToken = decodedResponse['data']['refreshToken'];
+      emit(UserLoggedInActionState(
+          accessToken: accessToken, refreshToken: refreshToken));
     } else {
       if (response.statusCode == 400) {
         emit(UserLoginErrorActionState(errorMessage: "Username is required"));

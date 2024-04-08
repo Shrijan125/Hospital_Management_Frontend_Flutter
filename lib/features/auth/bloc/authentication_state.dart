@@ -15,7 +15,13 @@ class UserSignupState extends AuthenticationState {}
 
 class LoginState extends AuthenticationState {}
 
-class UserLoggedInActionState extends AuthenticationActionState {}
+class UserLoggedInActionState extends AuthenticationActionState {
+  final String accessToken;
+  final String refreshToken;
+
+  UserLoggedInActionState(
+      {required this.accessToken, required this.refreshToken});
+}
 
 class UserLoginErrorActionState extends AuthenticationActionState {
   final String errorMessage;

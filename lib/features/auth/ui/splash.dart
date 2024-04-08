@@ -2,13 +2,19 @@ import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:fontend/features/auth/ui/auth.dart';
-import 'package:fontend/utils/constants.dart';
+import 'package:fontend/features/user/home/ui/home_page.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:page_transition/page_transition.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+import 'package:fontend/features/auth/ui/auth.dart';
+import 'package:fontend/utils/constants.dart';
 
+class Splash extends StatefulWidget {
+  const Splash({
+    super.key,
+    required this.refreshToken,
+  });
+  final String? refreshToken;
   @override
   State<Splash> createState() => _SplashState();
 }
@@ -20,7 +26,11 @@ class _SplashState extends State<Splash> {
       const Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(
         PageTransition(
-          child: const LoginScreen(),
+          child: widget.refreshToken == null
+              ? const LoginScreen()
+              : JwtDecoder.isExpired(widget.refreshToken!)
+                  ? const LoginScreen()
+                  : HomePage(),
           type: PageTransitionType.topToBottom,
         ),
       ),

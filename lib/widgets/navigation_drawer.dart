@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fontend/utils/constants.dart';
+import 'package:fontend/widgets/navigator_drawer_list_tile.dart';
 
 class SideNavigationDrawer extends StatelessWidget {
   const SideNavigationDrawer({super.key});
@@ -52,6 +54,42 @@ class SideNavigationDrawer extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+          ),
+          const DrawerItem(title: "Order Medicine", icon: Icons.shopping_bag),
+          const Divider(),
+          const DrawerItem(title: "Appointments", icon: Icons.event),
+          const Divider(),
+          const DrawerItem(title: "Bills", icon: Icons.receipt),
+          const Divider(),
+          const DrawerItem(title: "Lab Reports", icon: Icons.description),
+          const Divider(),
+          const DrawerItem(title: "Our Doctors", icon: Icons.person_3_rounded),
+          const Divider(),
+          const DrawerItem(title: "Contact Us", icon: Icons.contact_emergency),
+          const Divider(),
+          const DrawerItem(
+              title: "Prescriptions", icon: Icons.document_scanner),
+          const Divider(),
+          const SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 35),
+            child: ListTile(
+              onTap: () {},
+              leading: const Icon(
+                Icons.logout,
+                color: logOutButtonColor,
+                size: 30,
+              ),
+              title: const Text(
+                "Log Out",
+                style: TextStyle(
+                    color: logOutButtonColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
