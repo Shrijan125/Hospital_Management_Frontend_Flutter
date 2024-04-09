@@ -4,7 +4,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fontend/features/auth/ui/auth.dart';
-import 'package:fontend/features/user/edit_profile/edit_profile.dart';
+import 'package:fontend/features/user/edit_profile/ui/edit_profile.dart';
 import 'package:fontend/features/user/profile/bloc/profile_bloc.dart';
 import 'package:fontend/utils/constants.dart';
 
@@ -25,6 +25,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     var decodedToken =
         JwtDecoder.decode(widget.prefs.getString('accessToken')!);
+
     return BlocConsumer<ProfileBloc, ProfileState>(
       bloc: profileBloc,
       listenWhen: (previous, current) => current is ProfileActionState,
@@ -32,7 +33,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
       listener: (context, state) async {
         if (state is NavigateToEditProfileActionState) {
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-            return const EditProfilePage();
+            return EditProfilePage(
+              email: decodedToken['email'],
+            );
           }));
         }
         if (state is LogoutActionState) {
@@ -56,33 +59,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 const SizedBox(
                   height: 30,
                 ),
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      height: 150,
-                      width: 150,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset(
-                        'assets/images/logo_cropped.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 10,
-                      right: 10,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                          size: 40,
-                        ),
-                      ),
-                    ),
-                  ],
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 150,
+                  width: 150,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    'assets/images/logo_cropped.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
