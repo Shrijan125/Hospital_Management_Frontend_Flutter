@@ -42,6 +42,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           final SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('accessToken', state.accessToken);
           await prefs.setString('refreshToken', state.refreshToken);
+          ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Changes saved'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fontend/features/admin/home/ui/home_page_admin.dart';
 import 'package:fontend/features/auth/bloc/authentication_bloc.dart';
 import 'package:fontend/features/user/home/ui/home_page.dart';
 import 'package:fontend/utils/constants.dart';
@@ -38,11 +39,24 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is UserLoggedInActionState) {
           await prefs.setString('refreshToken', state.refreshToken);
           await prefs.setString('accessToken', state.accessToken);
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (ctx) {
             return HomePage();
           }));
         }
         if (state is UserLoginErrorActionState) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.errorMessage),
+            duration: const Duration(seconds: 1),
+          ));
+        }
+        if (state is AdminLoggedInActionState) {
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (ctx) {
+            return HomePageAdmin();
+          }));
+        } else if (state is AdminLogInErrorState) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.errorMessage),

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fontend/network/admin/admin_network_request.dart';
 import 'package:fontend/network/user_requests/user_network_request.dart';
 import 'package:meta/meta.dart';
 
@@ -22,8 +23,23 @@ class AuthenticationBloc
   }
 
   FutureOr<void> adminLoginButtonPressedEvent(
-      AdminLoginButtonPressedEvent event, Emitter<AuthenticationState> emit) {
-    print("Admin Login Button Presesed");
+      AdminLoginButtonPressedEvent event,
+      Emitter<AuthenticationState> emit) async {
+    var response =
+        await AdminNetwokRequests.loginAdmin(event.adminID, event.password);
+    if (response.statusCode == 200) {
+      emit(AdminLoggedInActionState());
+    } else {
+      if (response.statusCode == 400) {
+        emit(AdminLogInErrorState(errorMessage: "AdminID is required"));
+      } else if (response.statusCode == 404) {
+        emit(AdminLogInErrorState(errorMessage: "Admin does not exist"));
+      } else if (response.statusCode == 401) {
+        emit(AdminLogInErrorState(errorMessage: "Invalid Credentials"));
+      } else {
+        emit(AdminLogInErrorState(errorMessage: "Something went wrong"));
+      }
+    }
   }
 
   FutureOr<void> userLoginButtonPressedEvent(UserLoginButtonPressedEvent event,

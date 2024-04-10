@@ -7,6 +7,14 @@ abstract class AuthenticationActionState extends AuthenticationState {}
 
 final class AuthenticationInitial extends AuthenticationState {}
 
+class AdminLoggedInActionState extends AuthenticationActionState {}
+
+class AdminLogInErrorState extends AuthenticationActionState {
+  final String errorMessage;
+
+  AdminLogInErrorState({required this.errorMessage});
+}
+
 class AdminLoginState extends AuthenticationState {}
 
 class UserLoginState extends AuthenticationState {}

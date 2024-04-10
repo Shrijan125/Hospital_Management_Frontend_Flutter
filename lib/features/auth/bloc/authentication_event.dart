@@ -3,7 +3,12 @@ part of 'authentication_bloc.dart';
 @immutable
 sealed class AuthenticationEvent {}
 
-class AdminLoginButtonPressedEvent extends AuthenticationEvent {}
+class AdminLoginButtonPressedEvent extends AuthenticationEvent {
+  final String adminID;
+  final String password;
+
+  AdminLoginButtonPressedEvent({required this.adminID, required this.password});
+}
 
 class UserLoginButtonPressedEvent extends AuthenticationEvent {
   final String username;

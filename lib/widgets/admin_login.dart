@@ -10,7 +10,7 @@ class LoginAdminWidget extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _usernameController = TextEditingController();
+  final _adminIDController = TextEditingController();
 
   final _passwordcontroller = TextEditingController();
 
@@ -35,7 +35,7 @@ class LoginAdminWidget extends StatelessWidget {
                   children: [
                     TextFormField(
                       cursorColor: appBarColor,
-                      controller: _usernameController,
+                      controller: _adminIDController,
                       validator: (value) {
                         if (nullEmptyValidator(value)) {
                           return "Username can't be empty";
@@ -91,8 +91,9 @@ class LoginAdminWidget extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            authenticationBloc
-                                .add(AdminLoginButtonPressedEvent());
+                            authenticationBloc.add(AdminLoginButtonPressedEvent(
+                                adminID: _adminIDController.text,
+                                password: _passwordcontroller.text));
                           },
                           style: const ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
