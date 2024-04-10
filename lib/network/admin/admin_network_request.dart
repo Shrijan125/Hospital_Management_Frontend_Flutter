@@ -57,4 +57,16 @@ class AdminNetwokRequests {
     var response = await request.send();
     return response;
   }
+
+  static Future<http.Response> addDepartment(String departmentName) async {
+    final http.Response response;
+    response = await http.post(
+      Uri.parse('http://$localHost:8000/api/v1/admin/add-department'),
+      body: jsonEncode({'name': departmentName}),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    return response;
+  }
 }

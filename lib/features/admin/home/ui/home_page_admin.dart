@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fontend/features/admin/add_doctor/add_doctor.dart';
-import 'package:fontend/features/admin/department/add_department.dart';
+import 'package:fontend/features/admin/add_doctor/ui/add_doctor.dart';
+import 'package:fontend/features/admin/add_department/ui/add_department.dart';
 import 'package:fontend/features/admin/home/bloc/admin_home_bloc.dart';
 import 'package:fontend/features/auth/ui/auth.dart';
 import 'package:fontend/utils/constants.dart';

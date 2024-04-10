@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fontend/features/admin/add_doctor/bloc/add_doctor_bloc.dart';
-import 'package:fontend/features/admin/home/ui/home_page_admin.dart';
 import 'package:fontend/functions/null_checker.dart';
 import 'package:fontend/utils/constants.dart';
 import 'package:fontend/widgets/text_form_field.dart';
@@ -50,9 +48,7 @@ class _AddDoctorState extends State<AddDoctor> {
           );
 
           Future.delayed(const Duration(milliseconds: 1500), () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-              return HomePageAdmin();
-            }));
+            Navigator.of(context).pop();
           });
         }
         if (state is AddingDoctorErrorActionState) {
