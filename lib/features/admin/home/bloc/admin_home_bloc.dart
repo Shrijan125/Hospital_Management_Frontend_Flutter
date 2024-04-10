@@ -11,6 +11,8 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     on<AdminLogoutButtonCLickedEvent>(adminLogoutButtonCLickedEvent);
     on<AddDoctorButtonClickedEvent>(addDoctorButtonClickedEvent);
     on<AddDepartmentButtonClickedEvent>(addDepartmentButtonClickedEvent);
+    on<AddMedCategoryButtonClickedEvent>(addMedCategoryButtonClickedEvent);
+    on<AddMedicineButtonClickedEvent>(addMedicineButtonClickedEvent);
   }
 
   FutureOr<void> adminLogoutButtonCLickedEvent(
@@ -26,5 +28,15 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   FutureOr<void> addDepartmentButtonClickedEvent(
       AddDepartmentButtonClickedEvent event, Emitter<AdminHomeState> emit) {
     emit(AddDepartmentActionState());
+  }
+
+  FutureOr<void> addMedCategoryButtonClickedEvent(
+      AddMedCategoryButtonClickedEvent event, Emitter<AdminHomeState> emit) {
+    emit(AddMedCategoryActionState());
+  }
+
+  FutureOr<void> addMedicineButtonClickedEvent(
+      AddMedicineButtonClickedEvent event, Emitter<AdminHomeState> emit) {
+    emit(AddMedicineActionState());
   }
 }

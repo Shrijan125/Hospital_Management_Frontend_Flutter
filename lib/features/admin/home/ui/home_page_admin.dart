@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fontend/features/admin/add_doctor/ui/add_doctor.dart';
 import 'package:fontend/features/admin/add_department/ui/add_department.dart';
+import 'package:fontend/features/admin/add_med_category/ui/add_med_category.dart';
+import 'package:fontend/features/admin/add_medicine/ui/add_medicine.dart';
 import 'package:fontend/features/admin/home/bloc/admin_home_bloc.dart';
 import 'package:fontend/features/auth/ui/auth.dart';
 import 'package:fontend/utils/constants.dart';
@@ -31,6 +33,16 @@ class HomePageAdmin extends StatelessWidget {
         if (state is AddDoctorActionState) {
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
             return const AddDoctor();
+          }));
+        }
+        if (state is AddMedCategoryActionState) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+            return const MedCategory();
+          }));
+        }
+        if (state is AddMedicineActionState) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+            return const AddMedicine();
           }));
         }
       },
@@ -67,6 +79,20 @@ class HomePageAdmin extends StatelessWidget {
                   icon: Icons.add,
                   adminHomeBloc: adminHomeBloc,
                   event: AddDepartmentButtonClickedEvent()),
+              const Divider(),
+              ListTileAdminHome(
+                title: "Add MedCategory",
+                icon: Icons.category_outlined,
+                adminHomeBloc: adminHomeBloc,
+                event: AddMedCategoryButtonClickedEvent(),
+              ),
+              const Divider(),
+              ListTileAdminHome(
+                title: "Add Medicine",
+                icon: Icons.local_hospital,
+                adminHomeBloc: adminHomeBloc,
+                event: AddMedicineButtonClickedEvent(),
+              ),
               const Divider()
             ],
           ),

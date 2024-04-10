@@ -21,12 +21,15 @@ class AddDepartmentBloc extends Bloc<AddDepartmentEvent, AddDepartmentState> {
       emit(AddDepartmentSuccessState());
     } else if (response.statusCode == 400) {
       emit(AddDepartmentErrorState("Department name is required"));
+      emit(AddDepartmentInitial());
     } else if (response.statusCode == 500) {
       emit(AddDepartmentErrorState(
           "Something went wrong while creating the department"));
+      emit(AddDepartmentInitial());
     } else {
       emit(AddDepartmentErrorState(
           "Something went wrong while creating the department"));
+      emit(AddDepartmentInitial());
     }
   }
 }

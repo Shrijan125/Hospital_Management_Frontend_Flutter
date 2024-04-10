@@ -7,8 +7,12 @@ abstract class AdminHomeActionState extends AdminHomeState {}
 
 final class AdminHomeInitial extends AdminHomeState {}
 
-final class AdminLogoutActionState extends AdminHomeActionState {}
+class AdminLogoutActionState extends AdminHomeActionState {}
 
-final class AddDoctorActionState extends AdminHomeActionState {}
+class AddDoctorActionState extends AdminHomeActionState {}
 
-final class AddDepartmentActionState extends AdminHomeActionState {}
+class AddDepartmentActionState extends AdminHomeActionState {}
+
+class AddMedCategoryActionState extends AdminHomeActionState {}
+
+class AddMedicineActionState extends AdminHomeActionState {}

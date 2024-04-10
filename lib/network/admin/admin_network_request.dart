@@ -69,4 +69,16 @@ class AdminNetwokRequests {
     );
     return response;
   }
+
+  static Future<http.Response> addMedCategory(String category) async {
+    final http.Response response;
+    response = await http.post(
+      Uri.parse('http://$localHost:8000/api/v1/admin/add-medicine-category'),
+      body: jsonEncode({'category': category}),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    return response;
+  }
 }
