@@ -20,8 +20,6 @@ class DataLoadingErrorState extends AddDoctorState {
   DataLoadingErrorState({required this.errorMessage});
 }
 
-// class AddingDoctorState extends AddDoctorState {}
-
 class AddingDoctorSuccessActionState extends AddDoctorActionState {}
 
 class AddingDoctorErrorActionState extends AddDoctorActionState {

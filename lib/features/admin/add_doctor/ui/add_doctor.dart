@@ -77,6 +77,7 @@ class _AddDoctorState extends State<AddDoctor> {
                       UserImagePicker(
                         onPickImage: (pickedImage) =>
                             selectedImage = pickedImage,
+                        backgroundImgPath: "assets/images/default_profile.png",
                       ),
                       FormBox(
                         textController: nameTextController,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fontend/features/auth/ui/auth.dart';
 import 'package:fontend/utils/constants.dart';
 import 'package:fontend/widgets/navigator_drawer_list_tile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SideNavigationDrawer extends StatelessWidget {
   const SideNavigationDrawer({super.key});
@@ -18,7 +19,7 @@ class SideNavigationDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     height: 100,
                     width: 100,
                     decoration: const BoxDecoration(
@@ -56,40 +57,73 @@ class SideNavigationDrawer extends StatelessWidget {
               ],
             ),
           ),
-          const DrawerItem(title: "Order Medicine", icon: Icons.shopping_bag),
-          const Divider(),
-          const DrawerItem(title: "Appointments", icon: Icons.event),
-          const Divider(),
-          const DrawerItem(title: "Bills", icon: Icons.receipt),
-          const Divider(),
-          const DrawerItem(title: "Lab Reports", icon: Icons.description),
-          const Divider(),
-          const DrawerItem(title: "Our Doctors", icon: Icons.person_3_rounded),
-          const Divider(),
-          const DrawerItem(title: "Contact Us", icon: Icons.contact_emergency),
+          const DrawerItem(
+            title: "Order Medicine",
+            icon: Icons.shopping_bag,
+            destination: '/order_medicine',
+          ),
           const Divider(),
           const DrawerItem(
-              title: "Prescriptions", icon: Icons.document_scanner),
+            title: "Appointments",
+            icon: Icons.event,
+            destination: '/user_appointment',
+          ),
+          const Divider(),
+          const DrawerItem(
+            title: "Bills",
+            icon: Icons.receipt,
+            destination: '/user_bill',
+          ),
+          const Divider(),
+          const DrawerItem(
+            title: "Lab Reports",
+            icon: Icons.description,
+            destination: '/user_lab_reports',
+          ),
+          const Divider(),
+          const DrawerItem(
+            title: "Prescriptions",
+            icon: Icons.document_scanner,
+            destination: '/prescritions',
+          ),
+          const Divider(),
+          const DrawerItem(
+            title: "Our Doctors",
+            icon: Icons.person_3_rounded,
+            destination: '/our_doctors',
+          ),
+          const Divider(),
+          const DrawerItem(
+            title: "Contact Us",
+            icon: Icons.contact_emergency,
+            destination: '/contact_us',
+          ),
           const Divider(),
           const SizedBox(
             height: 5,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35),
-            child: ListTile(
-              onTap: () {},
-              leading: const Icon(
-                Icons.logout,
-                color: logOutButtonColor,
-                size: 30,
-              ),
-              title: const Text(
-                "Log Out",
-                style: TextStyle(
-                    color: logOutButtonColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+          ListTile(
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.remove('accessToken');
+              await prefs.remove('refreshToken');
+              if (context.mounted) {
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                  return const LoginScreen();
+                }));
+              }
+            },
+            leading: const Icon(
+              Icons.logout,
+              color: logOutButtonColor,
+              size: 30,
+            ),
+            title: const Text(
+              "Log Out",
+              style: TextStyle(
+                  color: logOutButtonColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:fontend/network/user_requests/user_network_request.dart';
+import 'package:fontend/network/user/user_network_request.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 

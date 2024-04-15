@@ -39,24 +39,26 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is UserLoggedInActionState) {
           await prefs.setString('refreshToken', state.refreshToken);
           await prefs.setString('accessToken', state.accessToken);
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (ctx) {
-            return HomePage();
-          }));
+          if (context.mounted) {
+            Navigator.of(context)
+                .pushReplacement(MaterialPageRoute(builder: (ctx) {
+              return const HomePage();
+            }));
+          }
         }
-        if (state is UserLoginErrorActionState) {
+        if (state is UserLoginErrorActionState && context.mounted) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.errorMessage),
             duration: const Duration(seconds: 1),
           ));
         }
-        if (state is AdminLoggedInActionState) {
+        if (state is AdminLoggedInActionState && context.mounted) {
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (ctx) {
             return HomePageAdmin();
           }));
-        } else if (state is AdminLogInErrorState) {
+        } else if (state is AdminLogInErrorState && context.mounted) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.errorMessage),

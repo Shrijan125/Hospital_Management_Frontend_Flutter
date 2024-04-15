@@ -41,9 +41,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
         if (state is LogoutActionState) {
           await widget.prefs.remove('accessToken');
           await widget.prefs.remove('refreshToken');
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-            return const LoginScreen();
-          }));
+          if (context.mounted) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+              return const LoginScreen();
+            }));
+          }
         }
       },
       builder: (context, state) {

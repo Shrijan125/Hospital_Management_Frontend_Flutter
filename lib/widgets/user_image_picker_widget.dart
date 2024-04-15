@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserImagePicker extends StatefulWidget {
-  const UserImagePicker({super.key, required this.onPickImage});
+  const UserImagePicker(
+      {super.key, required this.onPickImage, required this.backgroundImgPath});
   final void Function(File pickedImage) onPickImage;
+  final String backgroundImgPath;
   @override
   State<UserImagePicker> createState() => _UserImagePickerState();
 }
@@ -44,8 +46,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
         CircleAvatar(
           radius: 75,
           backgroundColor: Colors.white,
-          backgroundImage:
-              const AssetImage("assets/images/default_profile.png"),
+          backgroundImage: AssetImage(widget.backgroundImgPath),
           foregroundImage: _pickedImageFile != null
               ? FileImage(_pickedImageFile!)
               : _chosenImageFile != null

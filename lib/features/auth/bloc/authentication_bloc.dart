@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fontend/network/admin/admin_network_request.dart';
-import 'package:fontend/network/user_requests/user_network_request.dart';
+import 'package:fontend/network/user/user_network_request.dart';
 import 'package:meta/meta.dart';
 
 part 'authentication_event.dart';
@@ -78,8 +78,7 @@ class AuthenticationBloc
 
   FutureOr<void> signUpButtonPressed(
       SignUpButtonPressedEvent event, Emitter<AuthenticationState> emit) async {
-    var response =
-        await UserNetworkRequests.signUpUser("shrijan", "shreshth", "password");
+    await UserNetworkRequests.signUpUser("shrijan", "shreshth", "password");
   }
 
   FutureOr<void> alreadyHaveAccountButtonPressed(

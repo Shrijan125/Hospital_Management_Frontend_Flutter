@@ -30,7 +30,7 @@ class _SplashState extends State<Splash> {
               ? const LoginScreen()
               : JwtDecoder.isExpired(widget.refreshToken!)
                   ? const LoginScreen()
-                  : HomePage(),
+                  : const HomePage(),
           type: PageTransitionType.topToBottom,
         ),
       ),

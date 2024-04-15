@@ -1,8 +1,6 @@
 import 'dart:convert';
-// import 'dart:io';
-import 'package:fontend/network/user_requests/user_network_request.dart';
+import 'package:fontend/network/user/user_network_request.dart';
 import 'package:http/http.dart' as http;
-// import 'package:http_parser/http_parser.dart';
 
 class AdminNetwokRequests {
   static Future<http.Response> loginAdmin(
@@ -79,6 +77,43 @@ class AdminNetwokRequests {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    return response;
+  }
+
+  static Future<http.Response> getMedicineCategory() async {
+    final http.Response response;
+    response = await http.get(
+      Uri.parse('http://$localHost:8000/api/v1/admin/get-medicine-category'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    return response;
+  }
+
+  static Future<http.StreamedResponse> addMedicine(
+      String filepath,
+      String medicineName,
+      String mfg,
+      String exp,
+      String categoryID,
+      String unitPrice,
+      String prescritionRequired) async {
+    final request = http.MultipartRequest(
+        'POST', Uri.parse('http://$localHost:8000/api/v1/admin/add-medicine'));
+    request.fields['name'] = medicineName;
+    request.fields['category'] = categoryID;
+    request.fields['mfg'] = mfg;
+    request.fields['exp'] = exp;
+    request.fields['price'] = unitPrice;
+    request.fields['prescReq'] = prescritionRequired;
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'medImage',
+        filepath,
+      ),
+    );
+    var response = await request.send();
     return response;
   }
 }

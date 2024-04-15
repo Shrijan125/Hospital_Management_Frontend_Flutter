@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:fontend/features/admin/add_doctor/models/department_model.dart';
 import 'package:fontend/network/admin/admin_network_request.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 part 'add_doctor_event.dart';
