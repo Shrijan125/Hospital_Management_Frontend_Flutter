@@ -8,3 +8,13 @@ final class HomeInitial extends HomeState {}
 abstract class HomeActionState extends HomeState {}
 
 class NavigateToUserProfileActionState extends HomeActionState {}
+
+class HomeDoctorLoadingState extends HomeState {}
+
+class HomeDoctorLoadingSuccessState extends HomeState {
+  final List<DoctorModel> doctorModel;
+
+  HomeDoctorLoadingSuccessState({required this.doctorModel});
+}
+
+class HomeDoctorLoadingErrorState extends HomeState {}

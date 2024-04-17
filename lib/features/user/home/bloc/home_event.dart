@@ -6,3 +6,5 @@ sealed class HomeEvent {}
 class UserProfileButtonCLickedEvent extends HomeEvent {
   UserProfileButtonCLickedEvent();
 }
+
+class HomeInitialEvent extends HomeEvent {}
