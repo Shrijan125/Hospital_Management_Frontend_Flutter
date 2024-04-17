@@ -21,7 +21,14 @@ class AdminButtonPressedEvent extends AuthenticationEvent {}
 
 class DontHaveAccountButtonPressedEvent extends AuthenticationEvent {}
 
-class SignUpButtonPressedEvent extends AuthenticationEvent {}
+class SignUpButtonPressedEvent extends AuthenticationEvent {
+  final String username;
+  final String password;
+  final String email;
+
+  SignUpButtonPressedEvent(
+      {required this.username, required this.password, required this.email});
+}
 
 class AlreadyHaveAccountButtonPressedEvent extends AuthenticationEvent {}
 

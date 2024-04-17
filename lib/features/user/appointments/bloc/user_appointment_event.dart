@@ -4,3 +4,5 @@ part of 'user_appointment_bloc.dart';
 sealed class UserAppointmentEvent {}
 
 class BookAppointmentButtonClickedEvent extends UserAppointmentEvent {}
+
+class AppointmentInitialEvent extends UserAppointmentEvent {}

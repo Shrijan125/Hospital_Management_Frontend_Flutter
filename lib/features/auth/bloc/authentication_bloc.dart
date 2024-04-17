@@ -78,7 +78,21 @@ class AuthenticationBloc
 
   FutureOr<void> signUpButtonPressed(
       SignUpButtonPressedEvent event, Emitter<AuthenticationState> emit) async {
-    await UserNetworkRequests.signUpUser("shrijan", "shreshth", "password");
+    var response = await UserNetworkRequests.signUpUser(
+        event.username, event.email, event.password);
+    print(response.statusCode);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      emit(UserSignedUpActionState());
+    } else if (response.statusCode == 400) {
+      emit(UserSignUpErrorActionState(errorMessage: "All fields are required"));
+    } else if (response.statusCode == 409) {
+      emit(UserSignUpErrorActionState(
+          errorMessage: "User with email or username already exists"));
+    } else {
+      emit(UserSignUpErrorActionState(
+          errorMessage: "Something went wrong while registering the user"));
+    }
   }
 
   FutureOr<void> alreadyHaveAccountButtonPressed(

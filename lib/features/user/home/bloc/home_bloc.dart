@@ -53,8 +53,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         };
         var res = DoctorModel.fromMap(temp);
         doctors.add(res);
-        emit(HomeDoctorLoadingSuccessState(doctorModel: doctors));
       }
+      emit(HomeDoctorLoadingSuccessState(doctorModel: doctors));
     } else {
       emit(HomeDoctorLoadingErrorState());
     }

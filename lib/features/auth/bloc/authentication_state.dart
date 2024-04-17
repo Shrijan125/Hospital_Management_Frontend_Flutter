@@ -36,3 +36,11 @@ class UserLoginErrorActionState extends AuthenticationActionState {
 
   UserLoginErrorActionState({required this.errorMessage});
 }
+
+class UserSignedUpActionState extends AuthenticationActionState {}
+
+class UserSignUpErrorActionState extends AuthenticationActionState {
+  final String errorMessage;
+
+  UserSignUpErrorActionState({required this.errorMessage});
+}
