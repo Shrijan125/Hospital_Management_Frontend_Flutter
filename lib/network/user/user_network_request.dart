@@ -4,7 +4,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // "10.100.190.118" -> College   "192.168.9.177" -> Hostel
-const localHost = "10.100.190.118";
+const localHost = "192.168.9.177";
 
 class UserNetworkRequests {
   static Future<http.Response> signUpUser(

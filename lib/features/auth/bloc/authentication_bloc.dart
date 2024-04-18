@@ -80,7 +80,6 @@ class AuthenticationBloc
       SignUpButtonPressedEvent event, Emitter<AuthenticationState> emit) async {
     var response = await UserNetworkRequests.signUpUser(
         event.username, event.email, event.password);
-    print(response.statusCode);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       emit(UserSignedUpActionState());
